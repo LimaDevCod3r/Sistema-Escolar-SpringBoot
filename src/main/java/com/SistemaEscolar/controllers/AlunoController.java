@@ -1,5 +1,6 @@
 package com.SistemaEscolar.controllers;
 
+import com.SistemaEscolar.dtos.AlunoDTO;
 import com.SistemaEscolar.models.Aluno;
 import com.SistemaEscolar.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ public class AlunoController {
 
 
     @PostMapping("/aluno")
-    public ResponseEntity<Aluno> cadastar(@RequestBody Aluno aluno) {
-        Aluno alunoCriado = service.cadastrar(aluno);
+    public ResponseEntity<AlunoDTO> cadastar(@RequestBody AlunoDTO aluno) {
+        AlunoDTO alunoCriado = service.cadastrar(aluno);
         return ResponseEntity.status(201).body(alunoCriado);
     }
 
     @GetMapping("/alunos")
-    public ResponseEntity<List<Aluno>> buscarTodos() {
-        List<Aluno> alunos = service.buscarTodos();
+    public ResponseEntity<List<AlunoDTO>> buscarTodos() {
+        List<AlunoDTO> alunos = service.buscarTodos();
         return ResponseEntity.ok(alunos);
     }
 }
