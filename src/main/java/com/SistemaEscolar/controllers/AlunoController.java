@@ -1,8 +1,8 @@
 package com.SistemaEscolar.controllers;
 
 import com.SistemaEscolar.dtos.AlunoDTO;
-import com.SistemaEscolar.models.Aluno;
 import com.SistemaEscolar.services.AlunoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class AlunoController {
 
 
     @PostMapping("/aluno")
-    public ResponseEntity<AlunoDTO> cadastar(@RequestBody AlunoDTO aluno) {
+    public ResponseEntity<AlunoDTO> cadastar(@Valid @RequestBody AlunoDTO aluno) {
         AlunoDTO alunoCriado = service.cadastrar(aluno);
         return ResponseEntity.status(201).body(alunoCriado);
     }
