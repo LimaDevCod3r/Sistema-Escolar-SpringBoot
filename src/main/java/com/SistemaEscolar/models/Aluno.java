@@ -29,26 +29,44 @@ public class Aluno {
     @Column(length = 100)
     private String sobrenome;
 
-    @Column(unique = true, length = 14)
-    @Pattern(regexp = "\\d{11}", message = "CPF deve conter 11 dígitos numéricos")
+    @Column(unique = true, length = 11, nullable = false)
+    @Pattern(regexp = "\\d{11}", message = "CPF deve conter exatamente 11 dígitos numéricos")
+    @NotNull(message = "O CPF é obrigatório")
     private String cpf;
 
+    @Column(nullable = false)
+    @NotNull(message = "A data de nascimento é obrigatória")
     private LocalDateTime dataNascimento;
 
     @Column(length = 15)
+    @Pattern(regexp = "\\d{10,11}", message = "Telefone deve conter 10 ou 11 dígitos")
     private String telefone;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private Genero genero;
+
+    @Column(length = 100)
     @Email(message = "E-mail inválido")
     private String email;
 
-    @Column(length = 100, nullable = true)
+    @Column(length = 100)
     private String nomeDaMae;
 
-    @Column(length = 100, nullable = true)
+    @Column(length = 100)
     private String nomeDoPai;
 
-    @Column(length = 100, nullable = true)
-    private String endereco;
+    @Column(length = 9)
+    @Pattern(regexp = "\\d{8}", message = "CEP deve conter 8 dígitos numéricos")
+    private String cep;
+
+    @Column(length = 100)
+    private String cidade;
+
+    @Column(length = 2)
+    @Size(min = 2, max = 2, message = "Estado deve conter a sigla com 2 letras (ex: SP, RJ)")
+    private String estado;
+
 
     @Column(updatable = false)
     private LocalDateTime dataDeCadastro;
