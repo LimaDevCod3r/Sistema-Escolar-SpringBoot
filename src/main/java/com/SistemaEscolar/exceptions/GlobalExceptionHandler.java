@@ -35,4 +35,19 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
+
+
+    @ExceptionHandler(ResourceDuplicateException.class)
+    public ResponseEntity<ExceptionResponse> handleResourceDuplicate(Exception ex, HttpServletRequest request) {
+        ExceptionResponse response = new ExceptionResponse(
+                Instant.now(),
+                HttpStatus.CONFLICT.value(),
+                "Conflict",
+                ex.getMessage(),
+                request.getRequestURI(),
+                null
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
 }
