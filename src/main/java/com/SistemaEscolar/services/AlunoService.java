@@ -1,6 +1,7 @@
 package com.SistemaEscolar.services;
 
 import com.SistemaEscolar.dtos.AlunoDTO;
+import com.SistemaEscolar.exceptions.ResourceDuplicateException;
 import com.SistemaEscolar.models.Aluno;
 import com.SistemaEscolar.repositories.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import static com.SistemaEscolar.mapper.DozerMapper.mapList;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AlunoService {
@@ -20,6 +22,14 @@ public class AlunoService {
 
 
     public AlunoDTO cadastrar(AlunoDTO aluno) {
+
+        Optional<Aluno> emailAndCpf = repository.findByCpf(aluno.getCpf());
+
+        if (emailAndCpf.isPresent()) {
+            throw new ResourceDuplicateException(
+                    "O CPF '" + aluno.getCpf() + "' informado já está vinculado a outro aluno."
+            );
+        }
 
         // Converte o DTO de entrada para a entidade JPA usando o DozerMapper
         var alunoEntity = mapObject(aluno, Aluno.class);
