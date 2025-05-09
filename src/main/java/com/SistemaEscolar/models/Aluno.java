@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -36,7 +37,7 @@ public class Aluno {
 
     @Column(nullable = false)
     @NotNull(message = "A data de nascimento é obrigatória")
-    private LocalDateTime dataNascimento;
+    private LocalDate dataNascimento;
 
     @Column(length = 15)
     @Pattern(regexp = "\\d{10,11}", message = "Telefone deve conter 10 ou 11 dígitos")
